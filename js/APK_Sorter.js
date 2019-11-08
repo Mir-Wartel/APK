@@ -1,10 +1,10 @@
 class App extends Domer {
-  name = '';
+  name = "";
   price = 0;
   volume = 0;
   bev_type = '';
   beverage_id = 0
-  johan = new Drink('Johan', 2, 2, 2);
+ 
 
   drink_list = [];
 
@@ -36,21 +36,32 @@ class App extends Domer {
   }
 
 
-  add_drink(e) {
-
-    this.bev_type = this.bev_type
-
-    this.name = this.name
-
-
-
-    this.drink_list.push(new Beer(this.name, 22, this.bev_type, this.price, this.volume));
-
-    console.log(this.drink_list)
+  add_drink() {
 
     console.log(this.bev_type)
 
+    if (this.bev_type == "Wine"){
+      this.add_wine();
+      console.log(this.bev_type)
+    }
+    else if (this.bev_type == "Beer") {
+      this.add_beer();
+      console.log(this.bev_type)
+    }
+  }
 
+  add_beer() {
+
+    this.drink_list.push(new Beer(this.name, this.bev_type, this.price, this.volume));
+    console.log(this.drink_list)
+
+  }
+
+  add_wine(){
+
+    this.drink_list.push(new Wine(this.name, this.bev_type, this.price, this.volume));
+
+    console.log(this.drink_list)
 
   }
 
