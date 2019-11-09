@@ -7,7 +7,7 @@ class Wine extends Drink{
         super(name, price, vol, alko);
 
         this.type = type;
-        this.yeare = year;
+        this.year = year;
         this.subtype = subtype;
 
       } 

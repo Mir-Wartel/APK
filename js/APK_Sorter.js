@@ -4,64 +4,56 @@ class App extends Domer {
   volume = 0;
   bev_type = '';
   beverage_id = 0
+  wine_sub ="";
+  year = "Year";
+  is_wine = "hidden";
+  alko = 0.0;
  
 
   drink_list = [];
 
-  // if we dont want to run any code at 
-  // object creation, then we don't need
-  // to have a constructor
-
-  // render is a magical method, that works 
-  // somewhat like toString() in an object
-
-  set bev_is_type(x) {
-
-    this.bev_type = x;
-
-  }
-
-  sel_bev_t(e) {
-    //document.getElementById("sel").click();
-    this.bev_type = this.value;
-    console.log(this.bev_type)
-    console.log(this.value)
-
-  }
 
 
-  bev_t_select() { // when selecting
-    //document.getElementById("sel").click(); // click the rad to select it
 
-  }
+  show_wine() {
+
+    if (this.bev_type == "Wine") {
+      this.is_wine = "visible"
+     
+    }
+    
+
+  };
 
 
   add_drink() {
 
-    console.log(this.bev_type)
-
     if (this.bev_type == "Wine"){
       this.add_wine();
-      console.log(this.bev_type)
+
     }
     else if (this.bev_type == "Beer") {
       this.add_beer();
-      console.log(this.bev_type)
+
     }
+    
   }
 
   add_beer() {
 
-    this.drink_list.push(new Beer(this.name, this.bev_type, this.price, this.volume));
+    this.drink_list.push(new Beer(this.name, this.bev_type, this.sub_type, this.price, this.volume, this.alko, this.apk));
+
     console.log(this.drink_list)
+
 
   }
 
   add_wine(){
 
-    this.drink_list.push(new Wine(this.name, this.bev_type, this.price, this.volume));
+    calc_apk
 
-    console.log(this.drink_list)
+    this.drink_list.push(new Wine(this.name, this.bev_type, this.sub_type, this.price, this.volume, this.alko, this.year));
+
 
   }
 
@@ -70,35 +62,42 @@ class App extends Domer {
 
   render(html) {
 
-    // we tag our templates with html
-    // all components must have a single 
-    // element surrounding all other elements
+
     return html`
       <section>
-        <h1>${this.name}</h1>
-
-          We connect our input elements to an 
-          instance-variable with the attribute 'bind'
         
           <table style="width:50%">      
            <tr>
-            <th><input bind="name" type="text"  placeholder="Name"></th>
+           
+            <th><input bind="name" type="text"  placeholder="Name" ></th>
             <th>
-              <div id="list1" class="dropdown-check-list" tabindex="100">
-               <input type="radio" name="student_rad" id="sel">
-                 <select id="stud_sel" bind="bev_type">
+              <div id="list1" class="dropdown-check-list" tabindex="100" >
+               <input type="radio" change="show_wine" name="student_rad" id="sel" hidden>
+                 <select id="stud_sel" bind="bev_type" change=${this.show_wine()}>
                    <option value="">Please select Type of beverage</option>
                    <option value="Beer">Beer</option>
                    <option value="Cider">Cider</option>
                    <option value="Spirit">Spirit</option>
                    <option value="Wine">Wine</option>
                  </select>
+                 <div id="list_wine" class="dropdown-check-list" tabindex="100" >
+                     <input type="radio" name="student_rad" id="rad_wine" hidden >
+                       <select id="sel_wine" bind="sub_type" ${this.is_wine}>
+                       <option value="">Please select the type of wine</option>
+                       <option value="Red">Red</option>
+                       <option value="White">White</option>
+                       <option value="Rosé">Rosé</option>
+                       <option value="Sparkling">Sparkling</option>
+                        </select>
+                       <input type="number" bind="year" placeholder="Year"  min="1900" max= "2020" ${this.is_wine}>
+                   </div>
              </div>
            </th>
             <th>
               <input type="number" bind="price" placeholder="Price in SEK"  min="1">
             </th>
             <th><input type="number" bind="volume" placeholder="Volume in ml"  min="1"></th>
+            <th><input type="number" bind="alko" placeholder="Alkohol cointent in %" step="0.1" min="0.0" max="100"></th>
             
            </tr>
           </table>
@@ -119,8 +118,10 @@ class App extends Domer {
             <tr>
               <th>Name</th>
               <th>Type</th>
+              <th>Sub Type</th>
               <th>Price</th>
               <th>Volyume</th>
+              <th>Alcohol content %</th>
               <th>APK</th>
             </tr>
           
