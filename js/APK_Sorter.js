@@ -11,6 +11,7 @@ class App extends Domer {
   is_wine = "hidden";
   is_spirit = "hidden";
   is_aged_spirit = "hidden";
+  is_cider ="hidden";
   alko = 0.0;
  
 
@@ -24,11 +25,15 @@ class App extends Domer {
     if (this.bev_type == "Wine") {
       this.is_wine = "visible"
       this.is_spirit = "hidden"
+      this.is_cider = "hidden"
+      this.is_Beer = "hidden"
      
     }
     else if (this.bev_type == "Spirit")  {
       this.is_spirit = "visible"
       this.is_wine = "hidden"
+      this.is_cider = "hidden"
+      this.is_Beer = "hidden"
 
       
       
@@ -36,9 +41,27 @@ class App extends Domer {
      
     }
 
+    else if(this.bev_type == "Cider"){
+      this.is_cider = "visible"
+      this.is_wine = "hidden"
+      this.is_spirit = "hidden"
+      this.is_cider = "hidden"
+
+    }
+
+    else if(this.bev_type == "Beer"){
+      this.is_Beer = "visible"
+      this.is_wine = "hidden"
+      this.is_cider = "hidden"
+      this.is_spirit = "hidden"
+
+    }
+
     else{
       this.is_spirit = "hidden"
       this.is_wine = "hidden"
+      this.is_cider = "hidden"
+      this.is_Beer = "hidden"
       
     }
     
@@ -67,7 +90,7 @@ class App extends Domer {
       this.add_wine();
 
     }
-    else if (this.bev_type == "Beer") {
+    else if (this.bev_type == "Beer" || "Cider") {
       this.add_beer();
 
     }
@@ -134,7 +157,26 @@ class App extends Domer {
                         <option value="Moonshine">Moonshine</option>
                         <option value="Brandy ">Brandy</option>
                         <option value="Tequila ">Tequila</option>
+                        
                          </select>
+
+
+                         <select id="sel_cider" bind="cider_sub_type" ${this.is_cider}>
+                         <option value="" disabled selected hidden>Please select the type of cider</option>
+                         <option value="Dry">Dry</option>
+                         <option value="Sweet">Sweet</option>
+              
+                          </select>
+
+                          <select id="sel_Beer" bind="Beer_sub_type" ${this.is_Beer}>
+                          <option value="" disabled selected hidden>Please select the type of Beer</option>
+                          <option value="Lager">Dry</option>
+                          <option value="Ale">Sweet</option>
+                          <option value="Ipa">Sweet</option>
+               
+                           </select>
+
+
                        <input type="number" bind="year" placeholder="Year"  min="1900" max= "2020" ${this.is_wine}>
                        <input type="number" bind="spirit_year" placeholder="Year"  min="1900" max= "2020" ${this.is_aged_spirit}>
                    </div>
@@ -164,7 +206,7 @@ class App extends Domer {
               <th>Price</th>
               <th>Volyume</th>
               <th>Alcohol content %</th>
-              <th>Year (1900-2020)</th>
+              <th>Year</th>
               <th>APK</th>
             </tr>
           
