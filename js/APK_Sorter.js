@@ -3,10 +3,14 @@ class App extends Domer {
   price = 0;
   volume = 0;
   bev_type = '';
+  wine_sub_type = "";
+  spirit_sub_type = "";
   beverage_id = 0
-  wine_sub ="";
   year = "Year";
+  spirit_year = "Year";
   is_wine = "hidden";
+  is_spirit = "hidden";
+  is_aged_spirit = "hidden";
   alko = 0.0;
  
 
@@ -19,11 +23,42 @@ class App extends Domer {
 
     if (this.bev_type == "Wine") {
       this.is_wine = "visible"
+      this.is_spirit = "hidden"
      
+    }
+    else if (this.bev_type == "Spirit")  {
+      this.is_spirit = "visible"
+      this.is_wine = "hidden"
+
+      
+      
+
+     
+    }
+
+    else{
+      this.is_spirit = "hidden"
+      this.is_wine = "hidden"
+      
     }
     
 
   };
+
+  show_aged_spirit(){
+    if (this.bev_type == "Spirit"){
+      if(this.spirit_sub_type != "Vodka" && this.spirit_sub_type !="Monshine"  && this.spirit_sub_type !="Gin" && this.spirit_sub_type !=""){
+      this.is_aged_spirit = "visible"}
+      else{
+        this.is_aged_spirit = "hidden";
+      }
+    }
+    else{
+      this.is_aged_spirit = "hidden";
+    }
+  }
+
+
 
 
   add_drink() {
@@ -43,16 +78,16 @@ class App extends Domer {
 
     this.drink_list.push(new Beer(this.name, this.bev_type, this.sub_type, this.price, this.volume, this.alko, this.apk));
 
-    console.log(this.drink_list)
+  
 
 
   }
 
   add_wine(){
 
-    calc_apk
+   
 
-    this.drink_list.push(new Wine(this.name, this.bev_type, this.sub_type, this.price, this.volume, this.alko, this.year));
+    this.drink_list.push(new Wine(this.name, this.bev_type, this.sub_type, this.price, this.volume, this.alko, this.year, this.apk));
 
 
   }
@@ -74,22 +109,34 @@ class App extends Domer {
               <div id="list1" class="dropdown-check-list" tabindex="100" >
                <input type="radio" change="show_wine" name="student_rad" id="sel" hidden>
                  <select id="stud_sel" bind="bev_type" change=${this.show_wine()}>
-                   <option value="">Please select Type of beverage</option>
+                   <option value="" disabled selected hidden>Please select Type of beverage</option>
                    <option value="Beer">Beer</option>
                    <option value="Cider">Cider</option>
                    <option value="Spirit">Spirit</option>
                    <option value="Wine">Wine</option>
                  </select>
                  <div id="list_wine" class="dropdown-check-list" tabindex="100" >
-                     <input type="radio" name="student_rad" id="rad_wine" hidden >
+                     <input type="radio" name="student_rad" id="rad_wine" hidden  >
                        <select id="sel_wine" bind="sub_type" ${this.is_wine}>
-                       <option value="">Please select the type of wine</option>
+                       <option value="" disabled selected hidden>Please select the type of wine</option>
                        <option value="Red">Red</option>
                        <option value="White">White</option>
                        <option value="Rosé">Rosé</option>
                        <option value="Sparkling">Sparkling</option>
                         </select>
+
+                        <select id="sel_spirit" bind="spirit_sub_type" ${this.is_spirit} change=${this.show_aged_spirit()}>
+                        <option value="" disabled selected hidden>Please select the type of spirit</option>
+                        <option value="Whiskey">Whiskey</option>
+                        <option value="Rum">Rum</option>
+                        <option value="Vodka">Vodka</option>
+                        <option value="Gin">Gin</option>
+                        <option value="Moonshine">Moonshine</option>
+                        <option value="Brandy ">Brandy</option>
+                        <option value="Tequila ">Tequila</option>
+                         </select>
                        <input type="number" bind="year" placeholder="Year"  min="1900" max= "2020" ${this.is_wine}>
+                       <input type="number" bind="spirit_year" placeholder="Year"  min="1900" max= "2020" ${this.is_aged_spirit}>
                    </div>
              </div>
            </th>
@@ -108,12 +155,7 @@ class App extends Domer {
         
         
 
-          The DOM gets updated everytime these variables value changes
 
-
-          After creating new Person() objects in the class
-          we can simply render these components the same way
-          we add variables to strings with template literals    
           <table style="width:50%">      
             <tr>
               <th>Name</th>
@@ -122,6 +164,7 @@ class App extends Domer {
               <th>Price</th>
               <th>Volyume</th>
               <th>Alcohol content %</th>
+              <th>Year (1900-2020)</th>
               <th>APK</th>
             </tr>
           

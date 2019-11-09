@@ -3,6 +3,8 @@ class Wine extends Drink{
     type = "";
     year = "";
     subtype = "";
+    apk= this.calc_apk(this.alko, this.vol, this.price);
+
     constructor(name, type, subtype, price, vol, alko, year) {
         super(name, price, vol, alko);
 
@@ -27,6 +29,7 @@ class Wine extends Drink{
              <td>${this.vol}</td>
              <td>${this.alko}</td>
              <td>${this.year}</td>
+             <td>${this.apk}</td>
            </tr>
       
            

@@ -3,7 +3,7 @@ class Drink extends Domer{
   price = 0;
   vol = 0;
   alko = 0;
-  apk = 0;
+
 
   constructor(name, price, vol, alko, apk) {
     super();

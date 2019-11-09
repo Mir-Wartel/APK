@@ -13,6 +13,7 @@ class Beer extends Drink{
 
       } 
       
+      
 
       render(html) {
 
@@ -28,6 +29,7 @@ class Beer extends Drink{
              <td>${this.price}</td>    
              <td>${this.vol}</td>
              <td>${this.alko}</td>
+             <td></td>
              <td>${this.apk}</td>
            </tr>
       
