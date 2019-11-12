@@ -15,7 +15,7 @@ class App extends Domer {
   alko = 0.0;
   sort_by_val = "apk";
   id=0;
-  
+  h_l = "high-low";
 
 
   drink_list = [];
@@ -25,18 +25,19 @@ class App extends Domer {
 
   show_wine() {
 
+    this.is_spirit = "hidden"
+    this.is_cider = "hidden"
+    this.is_Beer = "hidden"
+    this.is_wine = "hidden"
+
     if (this.bev_type == "Wine") {
       this.is_wine = "visible"
-      this.is_spirit = "hidden"
-      this.is_cider = "hidden"
-      this.is_Beer = "hidden"
+
 
     }
     else if (this.bev_type == "Spirit") {
       this.is_spirit = "visible"
-      this.is_wine = "hidden"
-      this.is_cider = "hidden"
-      this.is_Beer = "hidden"
+
 
 
 
@@ -46,26 +47,14 @@ class App extends Domer {
 
     else if (this.bev_type == "Cider") {
       this.is_cider = "visible"
-      this.is_wine = "hidden"
-      this.is_spirit = "hidden"
-      this.is_Beer = "hidden"
+ 
 
 
     }
 
     else if (this.bev_type == "Beer") {
       this.is_Beer = "visible"
-      this.is_wine = "hidden"
-      this.is_cider = "hidden"
-      this.is_spirit = "hidden"
 
-    }
-
-    else {
-      this.is_spirit = "hidden"
-      this.is_wine = "hidden"
-      this.is_cider = "hidden"
-      this.is_Beer = "hidden"
 
     }
 
@@ -114,50 +103,115 @@ class App extends Domer {
 
   sort_by() {
 
-    let sort_by_val = this.sort_by_val
 
 
+    if(this.h_l == "low-high"){
+      let sort_by_val = this.sort_by_val
 
-    this.drink_list.sort(function (a, b) {
-
-      if(sort_by_val == "price_<") {
-
-        return a.price - b.price;
-      }
-
-      else if (sort_by_val == "price"){
-
-        return b.price - a.price;
+      this.drink_list.sort(function (a, b) {
       
 
-      }
 
-      else if (sort_by_val == "apk"){
+        if (sort_by_val == "price"){
+  
+          return a.price - b.price;
+        
+  
+        }
+  
+        else if (sort_by_val == "apk"){
+  
+          return a.apk - b.apk;
+        
+  
+        }
+  
+        else if (sort_by_val == "vol"){
+  
+          return a.vol - b.vol;
+        
+  
+        }
+  
+        else if (sort_by_val == "name"){
+  
+          return b.name - a.name;
+        
+  
+        }
+        else if (sort_by_val == "alko"){
+  
+          return a.alko - b.alko;
+        
+  
+        }
+        else if (sort_by_val == "year"){
+  
+          return a.year - b.year;
+        
+  
+        }
+  
+  
+  
+  
+      })
+    }
 
-        return b.apk - a.apk;
+    else{
+      let sort_by_val = this.sort_by_val
+      this.drink_list.sort(function (a, b) {
       
 
-      }
 
-      else if (sort_by_val == "vol"){
-
-        return b.vol - a.vol;
-      
-
-      }
-
-      else if (sort_by_val == "name"){
-
-        return a.name - b.name;
-      
-
-      }
-
-
-
-
-    })
-
+        if (sort_by_val == "price"){
+  
+          return b.price - a.price;
+        
+  
+        }
+  
+        else if (sort_by_val == "apk"){
+  
+          return b.apk - a.apk;
+        
+  
+        }
+  
+        else if (sort_by_val == "vol"){
+  
+          return b.vol - a.vol;
+        
+  
+        }
+  
+        else if (sort_by_val == "name"){
+  
+          return a.name - b.name;
+        
+  
+        }
+        else if (sort_by_val == "alko"){
+  
+          return b.alko - a.alko;
+        
+  
+        }
+        else if (sort_by_val == "year"){
+  
+          return b.year - a.year;
+        
+  
+        }
+  
+  
+  
+  
+      })
+    }
+    
+    console.log(this.h_l)
+  
   }
 
 
@@ -276,13 +330,18 @@ class App extends Domer {
             <select id="sel_sort_by" bind="sort_by_val" change=${this.sort_by()}>
             <option value="apk">APK</option>
             <option value="name">Name</option>
-            <option value="price_<">Price low-high</option>
-            <option value="price">Price high-low</option>
+            <option value="price">Price</option>
             <option value="vol">Volume</option>
-            
-
- 
+            <option value="alko">Alcohol content</option>
+            <option value="year">Year</option>
             </select>
+
+            <select id="sel_sort_h_l" bind="h_l" change=${this.sort_by()}>
+            <option value="high-low">High-low</option>
+            <option value="low-high">Low-high</option>
+            </select>
+
+
             </div></th>
            </tr>
           </table>
