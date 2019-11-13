@@ -30,7 +30,7 @@ class Beer extends Drink{
 
         return html`
     
-          <section>
+          <section class="bev_row">
 
             <tr>
 

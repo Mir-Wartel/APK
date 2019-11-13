@@ -1,6 +1,12 @@
 
 table, th, td {
     border: 1px solid black;
+
+
   }
+
+
+  
+.bev_row tr:hover td {background-color: #8bfbff;}
 
 

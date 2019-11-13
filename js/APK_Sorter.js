@@ -4,6 +4,8 @@ class App extends Domer {
   volume = 0;
   bev_type = '';
   wine_sub_type = "";
+  beer_sub_type = "";
+  cider_sub_type = "";
   spirit_sub_type = "";
   beverage_id = 0
   year = "Year";
@@ -14,7 +16,7 @@ class App extends Domer {
   is_cider = "hidden";
   alko = 0.0;
   sort_by_val = "apk";
-  id=0;
+  id = 0;
   h_l = "high-low";
 
 
@@ -24,6 +26,8 @@ class App extends Domer {
 
 
   show_wine() {
+
+    
 
     this.is_spirit = "hidden"
     this.is_cider = "hidden"
@@ -47,7 +51,7 @@ class App extends Domer {
 
     else if (this.bev_type == "Cider") {
       this.is_cider = "visible"
- 
+
 
 
     }
@@ -63,15 +67,18 @@ class App extends Domer {
 
   show_aged_spirit() {
     if (this.bev_type == "Spirit") {
-      if (this.spirit_sub_type != "Vodka" && this.spirit_sub_type != "Monshine" && this.spirit_sub_type != "Gin" && this.spirit_sub_type != "") {
+      if (this.spirit_sub_type != "Vodka" && this.spirit_sub_type != "Moonshine" && this.spirit_sub_type != "Gin" && this.spirit_sub_type != "") {
         this.is_aged_spirit = "visible"
       }
       else {
         this.is_aged_spirit = "hidden";
+        this.year = "";
+
       }
     }
     else {
       this.is_aged_spirit = "hidden";
+
     }
   }
 
@@ -80,7 +87,17 @@ class App extends Domer {
 
   add_drink() {
 
-    if (this.bev_type == "Wine") {
+    if(this.alko > 100){
+      this.alko = 100;
+    }
+
+    if(this.alko < 0){
+      this.alko = 0;
+    }
+
+
+
+    if (this.bev_type == "Wine" || "Spirit") {
       this.add_wine();
 
     }
@@ -89,7 +106,7 @@ class App extends Domer {
 
     }
 
-    
+
 
     this.sort_by();
 
@@ -105,120 +122,124 @@ class App extends Domer {
 
 
 
-    if(this.h_l == "low-high"){
+    if (this.h_l == "low-high") {
       let sort_by_val = this.sort_by_val
 
       this.drink_list.sort(function (a, b) {
-      
 
 
-        if (sort_by_val == "price"){
-  
+
+        if (sort_by_val == "price") {
+
           return a.price - b.price;
-        
-  
+
+
         }
-  
-        else if (sort_by_val == "apk"){
-  
+
+        else if (sort_by_val == "apk") {
+
           return a.apk - b.apk;
-        
-  
+
+
         }
-  
-        else if (sort_by_val == "vol"){
-  
+
+        else if (sort_by_val == "vol") {
+
           return a.vol - b.vol;
-        
-  
+
+
         }
-  
-        else if (sort_by_val == "name"){
-  
+
+        else if (sort_by_val == "name") {
+
           return b.name - a.name;
-        
-  
+
+
         }
-        else if (sort_by_val == "alko"){
-  
+        else if (sort_by_val == "alko") {
+
           return a.alko - b.alko;
-        
-  
+
+
         }
-        else if (sort_by_val == "year"){
-  
+        else if (sort_by_val == "year") {
+
           return a.year - b.year;
-        
-  
+
+
         }
-  
-  
-  
-  
+
+
+
+
       })
     }
 
-    else{
+    else {
       let sort_by_val = this.sort_by_val
       this.drink_list.sort(function (a, b) {
-      
 
 
-        if (sort_by_val == "price"){
-  
+
+        if (sort_by_val == "price") {
+
           return b.price - a.price;
-        
-  
+
+
         }
-  
-        else if (sort_by_val == "apk"){
-  
+
+        else if (sort_by_val == "apk") {
+
           return b.apk - a.apk;
-        
-  
+
+
         }
-  
-        else if (sort_by_val == "vol"){
-  
+
+        else if (sort_by_val == "vol") {
+
           return b.vol - a.vol;
-        
-  
+
+
         }
-  
-        else if (sort_by_val == "name"){
-  
+
+        else if (sort_by_val == "name") {
+
           return a.name - b.name;
-        
-  
+
+
         }
-        else if (sort_by_val == "alko"){
-  
+        else if (sort_by_val == "alko") {
+
           return b.alko - a.alko;
-        
-  
+
+
         }
-        else if (sort_by_val == "year"){
-  
+        else if (sort_by_val == "year") {
+
           return b.year - a.year;
-        
-  
+
+
         }
-  
-  
-  
-  
+
+
+
+
       })
     }
-    
-    console.log(this.h_l)
-  
+
+
   }
 
 
 
   add_beer() {
 
-    this.drink_list.push(new Beer(this.name, this.bev_type, this.sub_type, this.price, this.volume, this.alko, this.apk, this.id));
+    if(this.bev_type == "Cider"){
+      this.beer_sub_type = this.cider_sub_type;
+    }
+
+
+    this.drink_list.push(new Beer(this.name, this.bev_type, this.beer_sub_type, this.price, this.volume, this.alko, this.apk, this.id));
 
 
 
@@ -227,23 +248,28 @@ class App extends Domer {
 
   add_wine() {
 
+    if(this.bev_type == "Spirit"){
+      this.year = this.spirit_year;
+      this.wine_sub_type = this.spirit_sub_type;
+    }
 
 
-    this.drink_list.push(new Wine(this.name, this.bev_type, this.sub_type, this.price, this.volume, this.alko, this.year, this.apk, this.id));
+
+    this.drink_list.push(new Wine(this.name, this.bev_type, this.wine_sub_type, this.price, this.volume, this.alko, this.year, this.apk, this.id));
 
 
   }
 
   delete_row() {
-    this.drink_list.splice (this.drink_list.indexOf(this.id), 1);
+    this.drink_list.splice(this.drink_list.indexOf(this.id), 1);
 
   }
 
 
-  
- 
 
-  
+
+
+
 
 
 
@@ -271,7 +297,7 @@ class App extends Domer {
                  </select>
                  <div id="list_wine" class="dropdown-check-list" tabindex="100" >
                      <input type="radio" name="student_rad" id="rad_wine" hidden  >
-                       <select id="sel_wine" bind="sub_type" ${this.is_wine}>
+                       <select id="sel_wine" bind="wine_sub_type" ${this.is_wine}>
                        <option value="" disabled selected hidden>Please select the type of wine</option>
                        <option value="Red">Red</option>
                        <option value="White">White</option>
@@ -299,7 +325,7 @@ class App extends Domer {
               
                           </select>
 
-                          <select id="sel_Beer" bind="Beer_sub_type" ${this.is_Beer}>
+                          <select id="sel_Beer" bind="beer_sub_type" ${this.is_Beer}>
                           <option value="" disabled selected hidden>Please select the type of Beer</option>
                           <option value="Lager">Lager</option>
                           <option value="Ale">Ale</option>

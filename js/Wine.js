@@ -20,7 +20,7 @@ class Wine extends Drink{
     
           <section>
 
-            <tr>
+            <tr class="bev_row">
 
              <td>${this.name}</td>
              <td>${this.type}</td>
@@ -30,6 +30,7 @@ class Wine extends Drink{
              <td>${this.alko}</td>
              <td>${this.year}</td>
              <td>${this.apk}</td>
+             <td><button type='button' id=${this.id} class='btn' click=delete_row>Remove</button></td>
            </tr>
       
            
