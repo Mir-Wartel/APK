@@ -7,7 +7,6 @@ class App extends Domer {
   beer_sub_type = "";
   cider_sub_type = "";
   spirit_sub_type = "";
-  beverage_id = 0
   year = "Year";
   spirit_year = "Year";
   is_wine = "hidden";
@@ -97,13 +96,24 @@ class App extends Domer {
 
 
 
-    if (this.bev_type == "Wine" || "Spirit") {
+    if (this.bev_type == "Wine") {
       this.add_wine();
 
     }
-    else if (this.bev_type == "Beer" || "Cider") {
+    if (this.bev_type == "Spirit") {
+      this.add_wine();
+
+    }
+    else if (this.bev_type == "Beer") {
       this.add_beer();
 
+    }
+    else if (this.bev_type == "Cider") {
+      this.add_beer();
+
+    }
+    else{
+      return
     }
 
 
@@ -279,9 +289,12 @@ class App extends Domer {
 
 
     return html`
+
       <section>
+      <h1>APK Calculator</h1>
+      <p>Räkna ut priset för 1 militer ren etanol från valfri dryck. Sortera dryckerna efter humör.</p>
         
-          <table style="width:50%">      
+          <table style="width:60%">      
            <tr>
            
             <th><input bind="name" type="text"  placeholder="Name" ></th>
@@ -377,7 +390,7 @@ class App extends Domer {
         
 
 
-          <table style="width:50%">      
+          <table style="width:60%" >      
             <tr>
               <th>Name</th>
               <th>Type</th>
@@ -389,7 +402,7 @@ class App extends Domer {
               <th>APK</th>
             </tr>
             
-            <tr id=drink_list>
+            <tr class="bev_row" id=drink_list>
           
                ${this.drink_list}
             </tr>

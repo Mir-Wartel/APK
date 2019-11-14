@@ -5,8 +5,12 @@ table, th, td {
 
   }
 
+tr:hover {
+  background-color: rgb(255, 130, 224);
+}
 
-  
-.bev_row tr:hover td {background-color: #8bfbff;}
+td, th {
+  position: relative;
+}
 
 

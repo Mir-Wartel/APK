@@ -20,7 +20,7 @@ class Wine extends Drink{
     
           <section>
 
-            <tr class="bev_row">
+            <tr>
 
              <td>${this.name}</td>
              <td>${this.type}</td>
